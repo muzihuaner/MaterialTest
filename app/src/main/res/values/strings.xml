@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MaterialTest</string>
+    <string name="thisisamenu">这是一个菜单</string>
+    <string name="todo">TODO</string>
 </resources>
