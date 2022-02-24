@@ -11,21 +11,22 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
-    val fruits= mutableListOf(
-        Fruit("Apple",R.drawable.apple),
-        Fruit("Apple",R.drawable.apple),
-        Fruit("Apple",R.drawable.apple),
-        Fruit("Apple",R.drawable.apple),
-        Fruit("Apple",R.drawable.apple),
-        Fruit("Apple",R.drawable.apple),
-        Fruit("Apple",R.drawable.apple),
-        Fruit("Apple",R.drawable.apple),
-        Fruit("Apple",R.drawable.apple),
-        Fruit("Apple",R.drawable.apple)
+    val fruits = mutableListOf(
+        Fruit("Apple", R.drawable.apple),
+        Fruit("Banabana", R.drawable.banana),
+        Fruit("Apple", R.drawable.apple),
+        Fruit("Banabana", R.drawable.banana),
+        Fruit("Apple", R.drawable.apple),
+        Fruit("Banabana", R.drawable.banana),
+        Fruit("Apple", R.drawable.apple),
+        Fruit("Banabana", R.drawable.banana),
+        Fruit("Apple", R.drawable.apple),
+        Fruit("Banabana", R.drawable.banana)
     )
-    val fruitList=ArrayList<Fruit>()
+    val fruitList = ArrayList<Fruit>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,42 +43,65 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        fab.setOnClickListener {view->
-            Snackbar.make(view,"数据已删除",Snackbar.LENGTH_SHORT)
-                .setAction("撤销"){
-                    Toast.makeText(this,"数据已恢复",Toast.LENGTH_SHORT).show()
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "数据已删除", Snackbar.LENGTH_SHORT)
+                .setAction("撤销") {
+                    Toast.makeText(this, "数据已恢复", Toast.LENGTH_SHORT).show()
                 }.show()
         }
 
         initFruits()
-        val layoutManager=GridLayoutManager(this,2)
-        recyclerView.layoutManager=layoutManager
-        val adapter=FruitAdapter(this,fruitList)
-        recyclerView.adapter=adapter
+        val layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = layoutManager
+        val adapter = FruitAdapter(this, fruitList)
+        recyclerView.adapter = adapter
+//        下拉刷新进度条颜色
+        swipeRefresh.setColorSchemeResources(R.color.design_default_color_primary)
+//        下拉刷新监听器
+        swipeRefresh.setOnRefreshListener {
+            refreshFruits(adapter)
+        }
+    }
+
+    private fun refreshFruits(adapter: FruitAdapter) {
+        thread {
+            Thread.sleep(2000)
+            runOnUiThread {
+                initFruits()
+                adapter.notifyDataSetChanged()
+                swipeRefresh.isRefreshing=false
+            }
+        }
     }
 
     private fun initFruits() {
         fruitList.clear()
-        repeat(50){
-            val index=(0 until fruits.size).random()
+        repeat(50) {
+            val index = (0 until fruits.size).random()
             fruitList.add(fruits[index])
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar,menu)
+        menuInflater.inflate(R.menu.toolbar, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            android.R.id.home->drawerLayout.openDrawer(GravityCompat.START)
-            R.id.backup-> Toast.makeText(this,"你点击了备份",
-                Toast.LENGTH_SHORT).show()
-            R.id.delete-> Toast.makeText(this,"你点击了删除",
-                Toast.LENGTH_SHORT).show()
-            R.id.settings-> Toast.makeText(this,"你点击了设置",
-                Toast.LENGTH_SHORT).show()
+        when (item.itemId) {
+            android.R.id.home -> drawerLayout.openDrawer(GravityCompat.START)
+            R.id.backup -> Toast.makeText(
+                this, "你点击了备份",
+                Toast.LENGTH_SHORT
+            ).show()
+            R.id.delete -> Toast.makeText(
+                this, "你点击了删除",
+                Toast.LENGTH_SHORT
+            ).show()
+            R.id.settings -> Toast.makeText(
+                this, "你点击了设置",
+                Toast.LENGTH_SHORT
+            ).show()
         }
         return true
     }
