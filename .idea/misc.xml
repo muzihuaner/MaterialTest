@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyProject/Android/MaterialTest/app/src/main/res/drawable/baseline_comment_white_24dp.xml" value="0.1388157894736842" />
         <entry key="..\:/MyProject/Android/MaterialTest/app/src/main/res/drawable/ic_done.xml" value="0.21979166666666666" />
         <entry key="..\:/MyProject/Android/MaterialTest/app/src/main/res/drawable/ic_menu.xml" value="0.21979166666666666" />
         <entry key="..\:/MyProject/Android/MaterialTest/app/src/main/res/drawable/nav_call.xml" value="0.21979166666666666" />
+        <entry key="..\:/MyProject/Android/MaterialTest/app/src/main/res/layout/activity_fruit.xml" value="0.12861842105263158" />
         <entry key="..\:/MyProject/Android/MaterialTest/app/src/main/res/layout/activity_main.xml" value="0.152734375" />
         <entry key="..\:/MyProject/Android/MaterialTest/app/src/main/res/layout/fruit_item.xml" value="0.1" />
         <entry key="..\:/MyProject/Android/MaterialTest/app/src/main/res/layout/nav_header.xml" value="0.20364583333333333" />

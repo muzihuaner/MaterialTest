@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialTest">
         <activity
+            android:name=".FruitActivity"
+            android:theme="@style/FruitActivityTheme"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:label="我的应用"
-            android:exported="true">
+            android:exported="true"
+            android:label="我的应用">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
