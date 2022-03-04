@@ -2,16 +2,15 @@ package com.huangetech.materialtest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.concurrent.thread
+import com.huangetech.materialtest.showToast as showToast
 
 class MainActivity : AppCompatActivity() {
     val fruits = mutableListOf(
@@ -44,10 +43,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "数据已删除", Snackbar.LENGTH_SHORT)
-                .setAction("撤销") {
-                    Toast.makeText(this, "数据已恢复", Toast.LENGTH_SHORT).show()
-                }.show()
+
+            view.showSnackbar("数据已删除","撤销"){
+                "数据已恢复".showToast(context)
+            }
         }
 
         initFruits()
@@ -69,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 initFruits()
                 adapter.notifyDataSetChanged()
-                swipeRefresh.isRefreshing=false
+                swipeRefresh.isRefreshing = false
             }
         }
     }
@@ -106,6 +105,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 }
+
+private fun String.showToast() {
+    TODO("Not yet implemented")
+}
+
 
 
 
